@@ -184,3 +184,20 @@ if (!('IntersectionObserver' in window)) $$('.rv').forEach(el => el.classList.ad
 
 /* year */
 $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+/* intro film: plays muted when on screen; the red button restarts it with sound */
+(() => {
+  const reel = document.querySelector('[data-reel]'); if (!reel) return;
+  const v = reel.querySelector('video'), btn = reel.querySelector('[data-sound]');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const load = () => { if (!v.src) v.src = v.dataset.src; };
+  let withSound = false;
+  if (!still) new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { load(); v.play().catch(() => {}); } else if (!withSound) v.pause();
+  }), { threshold: .35 }).observe(reel);
+  v.addEventListener('ended', () => { reel.classList.add('ended'); if (!withSound) { v.currentTime = 0; v.play().catch(() => {}); } });
+  btn.addEventListener('click', () => {
+    load(); withSound = true; reel.classList.remove('ended'); reel.classList.add('playing-sound');
+    v.muted = false; v.currentTime = 0; v.controls = true; v.play().catch(() => {});
+  });
+})();
