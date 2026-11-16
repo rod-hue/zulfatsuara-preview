@@ -27,7 +27,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* donate links */
 $$('[data-actblue]').forEach(a => {
   const amt = a.dataset.actblue;
-  a.href = CONFIG.ACTBLUE + (amt ? (CONFIG.ACTBLUE.includes('?') ? '&' : '?') + 'amount=' + amt : '') + (CONFIG.ACTBLUE.includes('?') || amt ? '&' : '?') + 'refcode=website';
+  a.href = CONFIG.ACTBLUE;   // exact link, nothing appended (the campaign's page rejects extra parameters)
   a.target = '_blank'; a.rel = 'noopener';
 });
 
