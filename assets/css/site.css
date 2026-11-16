@@ -607,6 +607,5 @@ section[id]{scroll-margin-top:110px}
 .reel .snd{position:absolute;right:clamp(12px,2vw,24px);bottom:clamp(12px,2vw,24px);display:inline-flex;align-items:center;gap:10px;padding:14px 22px 14px 18px;border:0;border-radius:999px;background:var(--red);color:#fff;font:700 17px/1 Inter,system-ui,sans-serif;letter-spacing:.02em;cursor:pointer;box-shadow:0 10px 30px -8px rgba(200,16,46,.7);transition:transform .25s var(--ease),background .25s}
 .reel .snd:hover{transform:translateY(-2px);background:var(--red-2)}
 .reel .snd svg{width:22px;height:22px}
-.reel.playing-sound .snd{opacity:0;pointer-events:none}
-.reel.playing-sound:hover .snd,.reel.ended .snd{opacity:1;pointer-events:auto}
+.reel.playing-sound .snd{display:none}
 @media (max-width:760px){.reel .snd{padding:0;width:46px;height:46px;justify-content:center;right:10px;bottom:10px}.reel .snd span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.reel .snd svg{width:20px;height:20px;margin-left:2px}}
