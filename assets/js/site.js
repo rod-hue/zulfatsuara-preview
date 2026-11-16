@@ -190,7 +190,8 @@ $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
   const reel = document.querySelector('[data-reel]'); if (!reel) return;
   const v = reel.querySelector('video'), btn = reel.querySelector('[data-sound]');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const load = () => { if (!v.src) v.src = v.dataset.src; };
+  const big = innerWidth * (devicePixelRatio || 1) > 1400;
+  const load = () => { if (!v.src) v.src = big ? v.dataset.src : v.dataset.srcSm; };
   let withSound = false;
   if (!still) new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { load(); v.play().catch(() => {}); } else if (!withSound) v.pause();
