@@ -2,7 +2,7 @@
 /* ======== CAMPAIGN SETTINGS: update these when official ======== */
 const CONFIG = {
   // ActBlue page. Swap to the Vice Mayor committee's page when it exists.
-  ACTBLUE: 'https://secure.actblue.com/donate/zulfatwebsite',
+  ACTBLUE: 'https://secure.actblue.com/donate/suaraweb',
   // Where the volunteer / host / sign / speaker forms go.
   // Leave FORM_ENDPOINT empty to send by email (EMAIL) or fall back to the Google Form.
   FORM_ENDPOINT: '',            // e.g. https://formspree.io/f/xxxx
