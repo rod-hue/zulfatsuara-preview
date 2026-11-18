@@ -642,3 +642,11 @@ section[id]{scroll-margin-top:110px}
 @media (max-width:760px){.budget-talk{grid-template-columns:1fr}.aw-photo{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/5}}
 .awards{grid-auto-flow:row dense}
 @media (min-width:981px){.awards .aw.wide:last-child{grid-column:1/-1}}
+
+/* triptych text always fits its panel: size headings to the panel, never let a word push the box wider */
+.panel{container-type:inline-size}
+.panel .info>div{min-width:0;max-width:100%}
+.panel .info h2{font-size:clamp(26px,11cqi,58px);overflow-wrap:anywhere}
+.panel .info p{max-width:100%}
+.panel .kick{flex-wrap:wrap;max-width:100%}
+html{overflow-x:clip}
