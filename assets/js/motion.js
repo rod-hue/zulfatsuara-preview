@@ -34,8 +34,9 @@
   const deck = fan ? $$('img', fan) : [];
   function deckTargets() {
     const W = fan.clientWidth, H = fan.clientHeight, small = W < 640;
-    deck.forEach((img, i) => { img.style.display = small && i === deck.length - 1 ? 'none' : ''; });
-    const n = small ? deck.length - 1 : deck.length;
+    const drop = small && deck.length % 2 ? 1 : 0;   // phones: keep an even count for the 2-column grid
+    deck.forEach((img, i) => { img.style.display = drop && i === deck.length - 1 ? 'none' : ''; });
+    const n = deck.length - drop;
     const cols = W < 640 ? 2 : 4, rows = Math.ceil(n / cols), gap = W < 640 ? 10 : 16;
     let w = (W - gap * (cols - 1)) / cols, h = w * 1.2;
     if (h * rows + gap * (rows - 1) > H) { h = (H - gap * (rows - 1)) / rows; w = h / 1.2; }

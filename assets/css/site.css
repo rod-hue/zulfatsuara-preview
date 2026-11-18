@@ -631,3 +631,14 @@ section[id]{scroll-margin-top:110px}
   .pg-back svg{width:18px;height:18px}
   .pg-bar b{font-family:var(--display);font-weight:900;font-stretch:112%;text-transform:uppercase;font-size:17px;color:var(--navy)}
 }
+
+/* NAACP photo in Honors, budget band in Record */
+.aw-photo{grid-row:span 2;margin:0;border-radius:20px;overflow:hidden;position:relative;min-height:320px;background:var(--navy)}
+.aw-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.aw-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 16px;background:linear-gradient(180deg,rgba(2,18,58,0),rgba(2,18,58,.88));color:#fff;font-weight:800;font-size:16px;letter-spacing:.04em;text-transform:uppercase}
+.budget-talk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,44px);align-items:center;margin-top:clamp(36px,4vw,56px);padding:clamp(16px,2vw,24px);border-radius:24px;background:var(--paper,#fffdf9);border:1px solid var(--line)}
+.budget-talk img{width:100%;border-radius:16px;display:block;box-shadow:0 20px 40px -24px rgba(2,18,58,.5)}
+.budget-talk .h3{margin:8px 0 10px}.budget-talk p{margin:0 0 18px}
+@media (max-width:760px){.budget-talk{grid-template-columns:1fr}.aw-photo{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/5}}
+.awards{grid-auto-flow:row dense}
+@media (min-width:981px){.awards .aw.wide:last-child{grid-column:1/-1}}
