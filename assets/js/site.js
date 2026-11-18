@@ -202,3 +202,47 @@ $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
     v.muted = false; v.currentTime = 0; v.controls = true; v.play().catch(() => {});
   });
 })();
+
+/* phones: home + menu, each section opens as its own page (browser back works) */
+(() => {
+  const mq = matchMedia('(max-width:760px)'), body = document.body, main = $('#main'), bar = $('#pgBar');
+  if (!main || !bar) return;
+  const G = {
+    watch:      ['Watch', '#watch', '#film'],
+    meet:       ['Meet Zulfat', '.stats', '#meet', '.firsts-sec', '#journey'],
+    record:     ['Her Record', '#record'],
+    honors:     ['Honors', '#honors'],
+    priorities: ['Priorities', '#priorities'],
+    press:      ['In the News', '#press', '.fan-sec', '.wall-sec'],
+    vote:       ['How to Vote', '.count', '#vote'],
+    involved:   ['Get Involved', '#involved', '#donate'],
+  };
+  const extra = { '#host': 'involved', '#signs': 'involved', '#speak': 'involved', '#volunteer': 'involved' };
+  const secs = $$(':scope > section', main);
+  const on = (el, yes) => el.classList.toggle('pg-on', yes);
+  const groupOf = el => { const s = el.closest('main > section'); if (!s) return null;
+    for (const [g, v] of Object.entries(G)) if (v.slice(1).some(sel => s.matches(sel))) return g; return null; };
+  const hdr = $('.hdr');
+  // instant jumps (the site's smooth scrolling would otherwise land pages part way down)
+  const jump = el => requestAnimationFrame(() => { document.documentElement.style.setProperty('--hdr-h', (hdr ? hdr.offsetHeight : 64) + 'px');
+    const y = el ? el.getBoundingClientRect().top + scrollY - (hdr ? hdr.offsetHeight : 0) - (body.classList.contains('paged') ? 56 : 0) : 0;
+    scrollTo({ top: Math.max(0, y), behavior: 'instant' }); });
+  const refresh = () => { if (window.ScrollTrigger) setTimeout(() => ScrollTrigger.refresh(), 60); };
+  function route() {
+    secs.forEach(s => on(s, false));
+    if (!mq.matches) { body.classList.toggle('app', false); body.classList.toggle('paged', false); bar.hidden = true; refresh(); return; }
+    body.classList.toggle('app', true);
+    const h = location.hash;
+    let g = extra[h] || null, el = null;
+    if (!g && h.length > 1 && !['#top', '#hub', '#main'].includes(h)) { el = document.getElementById(h.slice(1)); if (el) g = groupOf(el); }
+    if (!g) { body.classList.toggle('paged', false); bar.hidden = true; refresh();
+      if (h === '#hub') jump($('#hub')); else if (h === '#top') jump(null); return; }
+    G[g].slice(1).forEach(sel => { const s = $(sel, main); if (s) on(s, true); });
+    body.classList.toggle('paged', true); bar.hidden = false; $('#pgTitle').textContent = G[g][0];
+    jump(el && !el.matches('main > section') ? el : null);
+    refresh();
+  }
+  // tapping the same link again still routes
+  document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (a && mq.matches && a.getAttribute('href') === location.hash) { e.preventDefault(); route(); } });
+  addEventListener('hashchange', route); mq.addEventListener('change', route); route();
+})();
