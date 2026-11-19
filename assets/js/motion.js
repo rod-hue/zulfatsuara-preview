@@ -37,7 +37,7 @@
     const drop = small && deck.length % 2 ? 1 : 0;   // phones: keep an even count for the 2-column grid
     deck.forEach((img, i) => { img.style.display = drop && i === deck.length - 1 ? 'none' : ''; });
     const n = deck.length - drop;
-    const cols = W < 640 ? 2 : 4, rows = Math.ceil(n / cols), gap = W < 640 ? 10 : 16;
+    const cols = W < 640 ? 2 : (n > 8 ? 5 : 4), rows = Math.ceil(n / cols), gap = W < 640 ? 10 : 16;
     let w = (W - gap * (cols - 1)) / cols, h = w * 1.2;
     if (h * rows + gap * (rows - 1) > H) { h = (H - gap * (rows - 1)) / rows; w = h / 1.2; }
     return deck.map((img, i) => { if (i >= n) return { x: 0, y: 0, w, h };
@@ -113,7 +113,7 @@
   });
 
   /* priority photos: gentle inner parallax */
-  $$('.pr .ph img').forEach(img => gsap.fromTo(img, { yPercent: -8, scale: 1.12 }, { yPercent: 8, scale: 1.12, ease: 'none', scrollTrigger: { trigger: img.closest('.pr'), start: 'top bottom', end: 'bottom top', scrub: true } }));
+  $$('.pr:not(.graphic) .ph img').forEach(img => gsap.fromTo(img, { yPercent: -8, scale: 1.12 }, { yPercent: 8, scale: 1.12, ease: 'none', scrollTrigger: { trigger: img.closest('.pr'), start: 'top bottom', end: 'bottom top', scrub: true } }));
 
   addEventListener('load', () => ST.refresh());
 })();
